@@ -1,49 +1,96 @@
- # Copyright (c) 2026 Anita Asuambuk. All Rights Reserved
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-st.set_page_config(page_title="HealthTrack", page_icon="💚", layout="centered")
-st.title("💚 HealthTrack - Your Health, Tracked")
-st.write("Built by Anita Asuambuk")
+# Page Config - makes it look pro
+st.set_page_config(
+    page_title="HealthTrack Pro",
+    page_icon="💚",
+    layout="wide"
+)
 
-menu = st.sidebar.selectbox("Menu", ["Sign Up", "Dashboard", "Add Health Data"])
+# Custom CSS - this is the BEAUTY magic!
+st.markdown("""
+<style>
+    .main-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 30px;
+        border-radius: 15px;
+        color: white;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .metric-card {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border-left: 4px solid #667eea;
+    }
+    .stButton>button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 25px;
+        border: none;
+        padding: 10px 30px;
+        font-weight: bold;
+    }
+</style>
+""", unsafe_allow_html=True)
 
-if menu == "Sign Up":
-    st.header("Create Your Account")
-    name = st.text_input("Full Name")
-    email = st.text_input("Email")
-    age = st.number_input("Age", 10, 100, 25)
-    gender = st.selectbox("Gender", ["Female", "Male", "Other"])
-    if st.button("Create Account"):
-        st.success(f"Welcome {name}! Account created.")
-        st.balloons()
+# Beautiful Header
+st.markdown("""
+<div class="main-header">
+    <h1>💚 HealthTrack Pro</h1>
+    <p>Your Personal Wellness Journey, Beautifully Tracked ✨</p>
+    <p><i>Built with 💜 by Anita Asuambuk</i></p>
+</div>
+""", unsafe_allow_html=True)
 
-elif menu == "Dashboard":
-    st.header("Your Progress - 7 Days")
-    dates = ["10-13", "10-14", "10-15", "10-16", "10-17", "10-18", "10-19"]
-    weight = [78.0, 77.8, 77.5, 77.3, 77.0, 76.8, 76.5]
-    hr = [80, 78, 82, 75, 76, 74, 73]
-    bp_sys = [130, 128, 125, 124, 122, 120, 118]
+# Two columns - Create Account looks premium
+col1, col2 = st.columns([1, 1])
+
+with col1:
+    st.markdown("### 🌟 Create Your Account")
+    st.markdown("Join thousands tracking their health!")
     
-    col1, col2 = st.columns(2)
-    with col1:
-        st.metric("Weight Loss", "1.5kg", "-1.9%")
-    with col2:
-        st.metric("Heart Rate", "73 bpm", "-7 bpm")
+    with st.container():
+        full_name = st.text_input("👤 Full Name", placeholder="Anita Asuambuk")
+        email = st.text_input("📧 Email", placeholder="anita@example.com")
+        age = st.number_input("🎂 Age", min_value=1, max_value=120, value=25)
+        gender = st.selectbox("⚧ Gender", ["Female", "Male", "Other", "Prefer not to say"])
+        
+        if st.button("🚀 Start My Health Journey"):
+            st.balloons()
+            st.success(f"Welcome {full_name}! Your journey starts now! 🎉")
 
-    fig, ax = plt.subplots()
-    ax.plot(dates, weight, marker='o', color='green')
-    ax.set_title("Weight Trend")
-    ax.set_ylabel("kg")
-    st.pyplot(fig)
-    st.success("Insight: Weight decreasing, BP improving 130->118!")
+with col2:
+    st.markdown("### 📊 Why HealthTrack?")
+    
+    # Metrics that look attractive
+    m1, m2, m3 = st.columns(3)
+    m1.metric("Users", "10K+", "↗️")
+    m2.metric("Health Score", "98%", "💚")
+    m3.metric("Rating", "4.9⭐", "🔥")
+    
+    st.markdown("---")
+    st.markdown("""
+    #### ✨ Features You'll Love:
+    - 🥗 **Smart Nutrition Tracking**
+    - 🏃‍♀️ **Fitness & Steps Monitor**
+    - 😴 **Sleep & Mood Insights**
+    - 📈 **Beautiful Charts**
+    - 🎯 **Daily Goals & Streaks**
+    """)
+    
+    # Sample chart to make it exciting
+    st.markdown("#### 📈 Your Weekly Progress")
+    chart_data = pd.DataFrame({
+        'Day': ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        'Health Score': [70, 75, 80, 78, 85, 90, 95]
+    })
+    st.line_chart(chart_data.set_index('Day'))
+    st.caption("Imagine YOUR data here! 🔥")
 
-elif menu == "Add Health Data":
-    st.header("Today's Check-in")
-    w = st.number_input("Weight (kg)", 40.0, 200.0, 76.5)
-    s = st.number_input("Steps", 0, 30000, 5000)
-    if st.button("Save My Data"):
-        st.success("Data saved! Dashboard updated.")
-
-print("app.py file created successfully!")
+st.markdown("---")
+st.markdown("<center><p>Made with 💜 by Anita | Inspiring Healthy Lives Everyday 🌍</p></center>", unsafe_allow_html=True)
