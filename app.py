@@ -1,6 +1,5 @@
 import streamlit as st
 from datetime import datetime
-import time
 
 st.set_page_config(page_title="HealthTrack Pro", page_icon="💚", layout="wide")
 
@@ -29,7 +28,7 @@ st.markdown("""
 <div class="main-header">
     <h1>💚 HealthTrack Pro</h1>
     <p>Your Personal Wellness Journey, Beautifully Tracked ✨</p>
-    <p style="font-size:0.9rem; margin-top:1rem;">Built with 💜 by Anita Asuambuk</p>
+    <p>Built with 💜 by Anita Asuambuk</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -65,8 +64,3 @@ with right:
     with c1: st.markdown('<div class="metric-card"><small>Users</small><h2>10K+</h2></div>', unsafe_allow_html=True)
     with c2: st.markdown('<div class="metric-card"><small>Health Score</small><h2>98%</h2></div>', unsafe_allow_html=True)
     with c3: st.markdown('<div class="metric-card"><small>Rating</small><h2>4.9 ⭐</h2></div>', unsafe_allow_html=True)
-    if st.session_state.medications:
-        adherence = int((len(st.session_state.taken_today)/len(st.session_state.medications))*100)
-        st.markdown("### 🎯 Today's Adherence")
-        st.progress(adherence/100)
-        st.write(f"{len(st.session_state.taken_today)}/{len(st.session_state.medications)} taken — {adherence}%")
